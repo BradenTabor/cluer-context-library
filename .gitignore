@@ -1,0 +1,52 @@
+# Environment files. Checked-in examples are allowed because they hold names,
+# not values.
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+
+# Credential material. These are deliberately extension- and filename-based
+# rather than substring globs like *secret*, which would silently swallow a
+# document about handling secrets.
+*.pem
+*.key
+*.pkcs12
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.ppk
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+.netrc
+.npmrc
+.pypirc
+credentials
+credentials.json
+client_secret*.json
+service-account*.json
+*.kubeconfig
+kubeconfig
+.aws/
+.ssh/
+secrets.yaml
+secrets.yml
+secrets.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Editors and OS
+.DS_Store
+*.swp
+.idea/
+.vscode/

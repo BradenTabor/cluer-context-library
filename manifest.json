@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "validation_statuses": [
+    "unvalidated",
+    "piloted",
+    "proven"
+  ],
+  "counts": {
+    "documents": 6,
+    "by_status": {
+      "unvalidated": 0,
+      "piloted": 6,
+      "proven": 0
+    },
+    "by_collection": {
+      "context": 2,
+      "skills": 4
+    }
+  },
+  "documents": [
+    {
+      "name": "helm-config-architecture",
+      "path": "context/helm-config-architecture.md",
+      "collection": "context",
+      "type": "project",
+      "description": "How configuration is split across Cluer Helm and the Hermes sandbox, and the token-budget arithmetic that governs it. Read before changing, validating, or reasoning about any context, lane, or model setting.",
+      "validation_status": "piloted",
+      "last_validated": "2026-08-27",
+      "sources": [
+        "infra/openshell/hermes-sandbox/config.yaml",
+        "infra/systemd/ollama-code-lane.override.conf",
+        "packages/contracts/__tests__/sandbox-model-routes.test.ts",
+        "scripts/commission-hermes-sandbox-appdev1.sh",
+        "docs/MODEL_FABRIC.md",
+        "docs/HERMES_HELM_HANDOFF.md",
+        "commit b06f1d6 (\"Reserve output room in Hermes' context budget\", #91)"
+      ],
+      "sections": [
+        "Why this document exists",
+        "The two config worlds — do not confuse them",
+        "The context budget rule — the single most important thing here",
+        "Gotchas — things that have actually broken",
+        "Conventions",
+        "Off-limits",
+        "Definition of done"
+      ]
+    },
+    {
+      "name": "site-design-contract",
+      "path": "context/site-design-contract.md",
+      "collection": "context",
+      "type": "craft",
+      "description": "Portable design contract for a Next.js marketing or product site: semantic colour tokens rebound across two grounds, travelling live colour, content sourced from one module, motion whose rest state is the finished page. Load for any new UI work. Do not load for Helm or infrastructure.",
+      "validation_status": "piloted",
+      "last_validated": "2026-09-06",
+      "sources": [
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/DESIGN.md @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/.cursor/rules/design-system.mdc @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/app/globals.css @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/audit.mjs @ 2c3bd9d"
+      ],
+      "sections": [
+        "Why this document exists",
+        "The token bridge",
+        "Two grounds and travelling colour",
+        "Content and identity",
+        "Motion and accessibility",
+        "Type roles",
+        "Gotchas — things that have actually broken",
+        "Conventions",
+        "Off-limits",
+        "Definition of done"
+      ]
+    },
+    {
+      "name": "design-preflight",
+      "path": "skills/design-preflight.md",
+      "collection": "skills",
+      "type": "craft",
+      "description": "Three-pass design pre-flight for a Next.js site: static audit, screenshot review at 390 / 768 / 1440, then production-build axe, CLS, overflow, reduced-motion and no-JS. Use before calling visual work done, or when asked for an iteration pass, design QA, or a green board.",
+      "validation_status": "piloted",
+      "last_validated": "2026-09-06",
+      "sources": [
+        "/Users/taborsmac/.cursor/skills/design-preflight/SKILL.md",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/DESIGN.md @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/audit.mjs @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/sweep.mjs @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/shot.mjs @ 2c3bd9d"
+      ],
+      "sections": [
+        "Why this document exists",
+        "Pass structure",
+        "Static gate",
+        "Browser board",
+        "Diagnosing the usual reds",
+        "Attribution probe for CLS",
+        "Gotchas — things that have actually broken",
+        "Conventions",
+        "Off-limits",
+        "Definition of done"
+      ]
+    },
+    {
+      "name": "instrument-desk",
+      "path": "skills/instrument-desk.md",
+      "collection": "skills",
+      "type": "craft",
+      "description": "Build a dense internal admin surface that reads like a bank of instruments: one row set, one projection shared by SVG and WebGL, URL-only view state, a hold channel between list and scene. Use for an admin dashboard, ops console, CRM board, or a 3D chart wired to real rows.",
+      "validation_status": "piloted",
+      "last_validated": "2026-09-06",
+      "sources": [
+        "/Users/taborsmac/.cursor/skills/instrument-desk/SKILL.md",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/DESIGN.md @ 2c3bd9d"
+      ],
+      "sections": [
+        "Why this document exists",
+        "Architecture",
+        "The four questions",
+        "Type and plates",
+        "One projection, two renderers",
+        "The gate",
+        "View state lives in the URL",
+        "The hold channel",
+        "Controls and empty states",
+        "Gotchas — things that have actually broken",
+        "Conventions",
+        "Off-limits",
+        "Definition of done"
+      ]
+    },
+    {
+      "name": "scroll-story-particles",
+      "path": "skills/scroll-story-particles.md",
+      "collection": "skills",
+      "type": "craft",
+      "description": "Build a scroll-driven story section where one particle field morphs through a sequence of shapes as the reader scrolls, with chapter copy in normal flow over a sticky canvas. Use for a scroll-telling hero, morphing particle scene, WebGL scroll animation, or story-driven landing page.",
+      "validation_status": "piloted",
+      "last_validated": "2026-09-06",
+      "sources": [
+        "/Users/taborsmac/.cursor/skills/scroll-story-particles/SKILL.md",
+        "/Users/taborsmac/.cursor/skills/scroll-story-particles/reference.md",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/DESIGN.md @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/lib/oklch.ts @ 2c3bd9d"
+      ],
+      "sections": [
+        "Why this document exists",
+        "Architecture",
+        "Shapes",
+        "Shader",
+        "Colour travel",
+        "Fallbacks",
+        "Line lock",
+        "Gotchas — things that have actually broken",
+        "Conventions",
+        "Off-limits",
+        "Definition of done"
+      ]
+    },
+    {
+      "name": "verification-harness",
+      "path": "skills/verification-harness.md",
+      "collection": "skills",
+      "type": "craft",
+      "description": "Stand up the design verification harness in a new repo: static audit, identity check, screenshot script, route sweep, and the npm scripts that wire them. Use when starting a site that must enforce the design contract, or when the next project would otherwise rebuild this tooling from memory.",
+      "validation_status": "piloted",
+      "last_validated": "2026-09-06",
+      "sources": [
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/audit.mjs @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/shot.mjs @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/sweep.mjs @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/verify-identity.mjs @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/scripts/drift.mjs @ 2c3bd9d",
+        "/Users/taborsmac/CluerGPUwebsite(re-name)/package.json @ 2c3bd9d"
+      ],
+      "sections": [
+        "Why this document exists",
+        "Wire the npm scripts first",
+        "Static audit",
+        "Identity",
+        "Screenshot script",
+        "Route sweep",
+        "Colour drift and scroll budget",
+        "Production measure pass",
+        "Gotchas — things that have actually broken",
+        "Conventions",
+        "Off-limits",
+        "Definition of done"
+      ]
+    }
+  ]
+}

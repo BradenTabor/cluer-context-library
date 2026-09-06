@@ -1,0 +1,23 @@
+---
+description: 'Design system contract — tokens, motion and accessibility. Applies to all UI work.'
+globs: 'app/**/*.{tsx,css},components/**/*.tsx,content/**/*.ts'
+alwaysApply: true
+---
+
+Read `DESIGN.md` in the repo root before any UI change. It is the contract.
+
+Hard rules, repeated here because they are the ones most often broken. The same list, in this order, lives in `DESIGN.md` and in the context library `context/site-design-contract.md`. If they drift, the library has failed.
+
+1. **No hardcoded colour.** No hex in components. No `bg-zinc-*`, `text-white`, `border-neutral-*`. Use semantic utilities (`bg-bg`, `text-ink`, `border-rule`) or `text-[var(--ink-2)]`. Colour is rebound per ground.
+
+2. **No hardcoded strings.** Copy comes from a content module. Names and URLs come from one config file. Never type the product name into a component.
+
+3. **Base state is the final state.** Animate *from* an offset with `backwards` and no fill-mode forwards. Never `opacity: 0` at rest. Never gate content on JS. `prefers-reduced-motion` is a hard stop and must leave the page fully legible.
+
+4. **`--edge` is the only border allowed on an interactive control.** `--rule` and `--rule-strong` are decorative. Never remove a focus ring.
+
+5. **Two grounds.** One dark, one paper. Every new token is bound in both. `--live` is the travelling colour; `--accent` is fixed and is the only colour a control may be. Hex is allowed only in a palette module, each literal commented with its token name, and an audit fails if they drift.
+
+6. **Verify before claiming done.** Typecheck, lint, the design audit, identity. Then screenshot at 390 / 768 / 1440 plus reduced-motion and no-JS, and check horizontal overflow at those widths.
+
+7. **Every control ships loading, empty, error and disabled** in the same pass. Ideal-state-only UI is not finished UI.
