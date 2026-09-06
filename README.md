@@ -70,11 +70,33 @@ scripts/
   build_manifest.py
   selftest.py
   doclib.py
-  install-adapters.sh   default --dry-run; do not run --apply until asked
+  install-adapters.sh   default --dry-run; --apply creates the symlinks
+.github/workflows/validate.yml   the same three checks, on every push
 manifest.json the index: every document, what it covers, how far it is trusted
 ```
 
 `adapters/` and `templates/` are not structure-checked. They are credential-scanned.
+
+## Setting this up on a machine
+
+```bash
+git clone git@github.com:<you>/cluer-context-library.git
+cd cluer-context-library
+scripts/install-adapters.sh --dry-run    # shows what would be linked
+scripts/install-adapters.sh --apply      # creates the symlinks
+```
+
+That symlinks `adapters/agent-skills/*` into `~/.cursor/skills` and
+`~/.claude/skills`, so every new Cursor or Claude chat on that machine loads
+the five skills automatically. Nothing needs to be pasted into a chat.
+
+The clone can live anywhere. Each adapter resolves its own symlink to find the
+library root, so the path is never hardcoded. `--apply` refuses to replace a
+real directory or a symlink pointing somewhere else, and reports which name it
+refused; it never deletes anything. Restart Cursor if the skills do not appear.
+
+To take a machine back off the library, delete the symlinks in those two
+directories. Nothing else on the system was touched.
 
 ## Starting a new site
 
@@ -84,10 +106,9 @@ Cursor picks up the rule. Fill `DESIGN.md` for that product. The seven hard
 rules in `DESIGN.md`, the Cursor rule, and `context/site-design-contract.md`
 must stay the same list in the same order.
 
-Optional, later: `scripts/install-adapters.sh --dry-run` shows what would be
-symlinked into `~/.cursor/skills` and `~/.claude/skills`. `--apply` creates
-the links. It refuses to replace a real directory, including the original
-personal skills this library was extracted from.
+You do not need to paste anything into the agent chat. If the adapters are
+installed on that machine, the five skills are already loaded and will invoke
+themselves when the work matches their description.
 
 ## Validation states
 
@@ -137,6 +158,15 @@ python3 scripts/validate.py --max-age-days 180
 python3 scripts/build_manifest.py --check     # fails if the index is stale
 python3 scripts/selftest.py                   # checks the validator itself
 ```
+
+`.github/workflows/validate.yml` runs the first, third and fourth of those on
+every push and pull request, twice — once with PyYAML installed and once
+without, because the two frontmatter parsers have to agree. A malformed
+document, a stale `manifest.json`, or anything that looks like a credential
+fails before it lands. On the first of each month it also runs
+`--max-age-days 180`, which fails when a `piloted` or `proven` document has
+not been re-checked in six months. Re-validate it and bump `last_validated`,
+or move it back down to `unvalidated` — do not let it drift.
 
 Structure checks run on every `.md` under `context/` and `skills/`: frontmatter
 parses as YAML, the required fields are present and well formed,

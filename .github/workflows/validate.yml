@@ -1,0 +1,59 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # 09:00 America/Chicago on the 1st, for the staleness job below.
+    - cron: '0 14 1 * *'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: ${{ matrix.parser }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Frontmatter is read by PyYAML when it is installed and by the
+        # built-in subset parser when it is not. Both paths have to agree, so
+        # both are exercised on every push.
+        parser: [with-pyyaml, without-pyyaml]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install PyYAML
+        if: matrix.parser == 'with-pyyaml'
+        run: python -m pip install --quiet pyyaml
+
+      - name: Structure checks and credential scan
+        run: python3 scripts/validate.py --strict
+
+      - name: Index is current
+        run: python3 scripts/build_manifest.py --check
+
+      - name: Validator self-test
+        run: python3 scripts/selftest.py
+
+  staleness:
+    # A piloted or proven document that has not been re-checked in six months
+    # is a claim nobody has tested. This does not block a push; it fails on a
+    # schedule so the rot surfaces on its own.
+    name: staleness
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - run: python -m pip install --quiet pyyaml
+      - name: Documents re-validated within 180 days
+        run: python3 scripts/validate.py --strict --max-age-days 180
